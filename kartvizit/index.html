@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kartvizit | YAY Mühendislik</title>
+<meta name="description" content="YAY Mühendislik dijital kartviziti. Telefon, e-posta ve adres bilgilerini rehberinize tek dokunuşla kaydedin.">
+<link rel="canonical" href="https://yaymuhendislik.github.io/kartvizit/">
+<meta name="theme-color" content="#124c8c">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../favicon.png">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="YAY Mühendislik">
+<meta property="og:url" content="https://yaymuhendislik.github.io/kartvizit/">
+<meta property="og:title" content="YAY Mühendislik · Kartvizit">
+<meta property="og:description" content="Metraj, keşif ve maliyet danışmanlığı. Rehbere kaydetmek için dokunun.">
+<meta property="og:image" content="https://yaymuhendislik.github.io/logo-light.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Card is drawn at 85 × 55 mm. Inside a card every size is written in --mm,
+   which is 1/85 of the card width, so the screen preview and the printed card
+   keep identical proportions. */
+:root {
+  --bg: #eef1f3; --surface: #ffffff; --ink: #2b3135; --muted: #5d676e; --line: #c9d0d5;
+  --accent: #124c8c; --accent-ink: #ffffff;
+  --logo-light: block; --logo-dark: none;
+  /* card colors are print colors: they do not change with the theme */
+  --card-paper: #ffffff; --card-blue: #124c8c; --card-ink: #2b3135; --card-orange: #e8861a;
+  --display: "IBM Plex Sans Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15191c; --surface: #1d2226; --ink: #e4e8eb; --muted: #9aa5ad; --line: #343c42;
+    --accent: #6ea8e8; --accent-ink: #0c1a22; --logo-light: none; --logo-dark: block;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15191c; --surface: #1d2226; --ink: #e4e8eb; --muted: #9aa5ad; --line: #343c42;
+  --accent: #6ea8e8; --accent-ink: #0c1a22; --logo-light: none; --logo-dark: block;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 1rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1 { font-family: var(--display); line-height: 1.1; margin: 0; font-size: clamp(1.9rem, 5vw, 2.6rem); font-weight: 700; }
+p { margin: 0; }
+
+.wrap {
+  max-width: 64rem; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label { font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .9rem; flex-wrap: wrap; }
+.brand { display: flex; }
+.brand img { height: 2.6rem; width: auto; }
+.brand .logo-light { display: var(--logo-light); }
+.brand .logo-dark { display: var(--logo-dark); }
+.top nav a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: .95rem; }
+.top nav a:hover { color: var(--accent); }
+
+main { padding-block: 2.5rem 4rem; }
+.intro { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 2rem; max-width: 38rem; }
+.intro p { color: var(--muted); }
+
+.faces { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+.face-wrap { display: flex; flex-direction: column; gap: .6rem; min-width: 0; }
+
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.25rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem; cursor: pointer;
+  padding: .8rem 1.2rem; font: 600 .98rem var(--body);
+  text-decoration: none; border: 2px solid var(--accent);
+  color: var(--accent); background: transparent;
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.print-note { margin-top: 1.25rem; font-family: var(--mono); font-size: .8rem; color: var(--muted); max-width: 44rem; }
+
+/* ---------- The card ---------- */
+.card {
+  container-type: inline-size;
+  width: 100%; aspect-ratio: 85 / 55; position: relative; overflow: hidden;
+  box-shadow: 0 0 0 1px var(--line), 0 18px 40px -22px rgba(20, 30, 40, .45);
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.face { --mm: calc(100cqw / 85); position: absolute; inset: 0; }
+
+/* Front */
+.front { background: var(--card-paper); color: var(--card-ink); }
+.front .logo { position: absolute; left: calc(7 * var(--mm)); top: calc(9 * var(--mm)); width: calc(58 * var(--mm)); height: auto; }
+.front .dimline {
+  position: absolute; left: calc(7 * var(--mm)); right: calc(7 * var(--mm)); bottom: calc(10.5 * var(--mm));
+  height: calc(.25 * var(--mm)); background: var(--card-ink);
+}
+.front .dimline::before, .front .dimline::after {
+  content: ""; position: absolute; top: calc(-1.4 * var(--mm));
+  width: calc(.25 * var(--mm)); height: calc(3 * var(--mm)); background: var(--card-ink); transform: rotate(45deg);
+}
+.front .dimline::before { left: 0; } .front .dimline::after { right: 0; }
+.front .dimtext {
+  position: absolute; left: 50%; bottom: calc(12 * var(--mm)); transform: translateX(-50%); white-space: nowrap;
+  font: 500 calc(2.55 * var(--mm)) / 1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--card-blue);
+}
+.front .sub {
+  position: absolute; left: 0; right: 0; bottom: calc(5.5 * var(--mm)); text-align: center;
+  font: 400 calc(2.3 * var(--mm)) / 1 var(--body); color: #5d676e;
+}
+.front .tick { position: absolute; right: 0; top: 0; width: calc(4 * var(--mm)); height: calc(16 * var(--mm)); background: var(--card-orange); }
+
+/* Back */
+.back { background: var(--card-blue); color: #fff; }
+.back .info { position: absolute; left: calc(7 * var(--mm)); top: calc(7 * var(--mm)); right: calc(33 * var(--mm)); display: flex; flex-direction: column; gap: calc(2.3 * var(--mm)); }
+.back .k { display: block; font: 500 calc(1.9 * var(--mm)) / 1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: #a9c3e2; margin-bottom: calc(.9 * var(--mm)); }
+.back .v { display: block; font: 600 calc(2.9 * var(--mm)) / 1.25 var(--display); }
+.back .v.big { font-size: calc(4.4 * var(--mm)); letter-spacing: .01em; }
+.back .v.addr { font: 400 calc(2.45 * var(--mm)) / 1.35 var(--body); }
+.back a { color: inherit; text-decoration: none; }
+.back .qr { position: absolute; right: calc(7 * var(--mm)); top: calc(7 * var(--mm)); width: calc(22 * var(--mm)); display: flex; flex-direction: column; align-items: center; gap: calc(1.6 * var(--mm)); }
+.back .qr-tile { background: #fff; padding: calc(1.6 * var(--mm)); width: 100%; line-height: 0; }
+.back .qr-tile svg { width: 100%; height: auto; display: block; }
+.back .qr span { font: 500 calc(1.8 * var(--mm)) / 1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #cfe0f3; text-align: center; }
+.back .bar { position: absolute; left: 0; right: 0; bottom: 0; height: calc(1.6 * var(--mm)); background: var(--card-orange); }
+
+/* ---------- Print sheets (A4, 2 × 5 cards) ---------- */
+.sheets { display: none; }
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { background: #fff !important; color: #000; }
+  .top, main { display: none !important; }
+  .sheets { display: block; }
+  .sheet { width: 210mm; height: 297mm; position: relative; break-after: page; overflow: hidden; }
+  .sheet:last-child { break-after: auto; }
+  .grid {
+    position: absolute; left: 20mm; top: 11mm;
+    display: grid; grid-template-columns: repeat(2, 85mm); grid-auto-rows: 55mm;
+  }
+  .grid .card { width: 85mm; height: 55mm; aspect-ratio: auto; box-shadow: none; }
+  /* 3 mm bleed so a slightly-off cut never shows white on the blue side */
+  .sheet-back .grid { box-shadow: 0 0 0 3mm var(--card-blue); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .crop { position: absolute; background: #000; }
+  .crop.h { height: .15mm; width: 6mm; }
+  .crop.v { width: .15mm; height: 6mm; }
+}
+
+@media (max-width: 760px) {
+  .faces { grid-template-columns: 1fr; max-width: 30rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn, .top nav a { transition: background-color .15s, color .15s; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="YAY Mühendislik ana sayfa">
+      <img class="logo-light" src="../logo-light.png" alt="YAY Mühendislik" width="1000" height="282">
+      <img class="logo-dark" src="../logo-dark.png" alt="YAY Mühendislik" width="1000" height="282">
+    </a>
+    <nav aria-label="Site"><a href="../">Web sitesine git →</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="intro">
+    <span class="label">Kartvizit</span>
+    <h1>YAY Mühendislik</h1>
+    <p>Metraj, keşif ve maliyet danışmanlığı. Bilgilerimizi tek dokunuşla rehberinize kaydedebilirsiniz.</p>
+  </div>
+
+  <div class="faces">
+    <div class="face-wrap">
+      <span class="label">Ön yüz</span>
+      <div class="card" id="card-front">
+        <div class="face front">
+          <span class="tick" aria-hidden="true"></span>
+          <img class="logo" src="../logo-light.png" alt="YAY Mühendislik" width="1000" height="282">
+          <span class="dimtext">Metraj · Keşif · Danışmanlık</span>
+          <span class="dimline" aria-hidden="true"></span>
+          <span class="sub">Alüminyum sistemleri ve mekanik tesisat</span>
+        </div>
+      </div>
+    </div>
+    <div class="face-wrap">
+      <span class="label">Arka yüz</span>
+      <div class="card" id="card-back">
+        <div class="face back">
+          <div class="info">
+            <div><span class="k">Telefon · WhatsApp</span><a class="v big" href="tel:+905441151443">0 (544) 115 14 43</a></div>
+            <div><span class="k">E-posta</span><a class="v" href="mailto:yaymuhendislik.tr@gmail.com">yaymuhendislik.tr@gmail.com</a></div>
+            <div><span class="k">Web</span><a class="v" href="../">yaymuhendislik.github.io</a></div>
+            <div><span class="k">Adres</span><span class="v addr">Dicle, Kurtuluş Cd. C Blok No: 6 C/A<br>21950 Ergani / Diyarbakır</span></div>
+          </div>
+          <div class="qr">
+            <div class="qr-tile">
+              <svg viewBox="0 0 33 33" role="img" aria-label="Bu sayfanın QR kodu" shape-rendering="crispEdges"><path stroke="#000" d="M0 0.5h7m1 0h1m2 0h1m1 0h7m2 0h2m2 0h7m-33 1h1m5 0h1m1 0h3m7 0h7m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h2m2 0h3m1 0h1m1 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h6m3 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h2m1 0h2m1 0h2m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m4 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h1m3 0h1m2 0h3m1 0h1m-21 1h2m1 0h1m1 0h2m2 0h5m2 0h2m1 0h2m4 0h1m1 0h5m-31 1h1m2 0h1m1 0h3m2 0h3m2 0h1m2 0h2m2 0h4m4 0h1m-33 1h1m2 0h1m1 0h4m3 0h1m1 0h1m1 0h1m1 0h1m1 0h2m5 0h1m2 0h3m-32 1h1m3 0h1m3 0h3m1 0h1m1 0h1m1 0h5m1 0h2m3 0h1m-28 1h1m1 0h2m1 0h1m1 0h1m4 0h1m1 0h1m2 0h4m1 0h1m1 0h2m2 0h1m-28 1h2m3 0h2m2 0h5m2 0h2m1 0h1m2 0h3m5 0h1m-32 1h1m1 0h1m1 0h2m2 0h2m2 0h6m6 0h1m4 0h3m-32 1h1m6 0h2m1 0h1m1 0h1m3 0h1m2 0h4m2 0h1m1 0h1m2 0h1m-32 1h1m1 0h2m2 0h2m2 0h2m1 0h1m2 0h1m1 0h4m2 0h3m-25 1h1m1 0h1m3 0h1m2 0h2m2 0h2m3 0h1m3 0h1m1 0h2m3 0h2m-32 1h3m2 0h1m2 0h3m1 0h2m1 0h2m4 0h1m2 0h1m4 0h3m-33 1h3m2 0h1m1 0h2m1 0h2m1 0h4m1 0h1m2 0h3m2 0h3m3 0h1m-32 1h2m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m2 0h1m1 0h2m-30 1h3m2 0h1m4 0h3m6 0h1m1 0h4m1 0h4m-33 1h1m2 0h4m1 0h3m4 0h1m1 0h1m2 0h2m8 0h3m-32 1h2m1 0h1m4 0h1m1 0h2m1 0h2m1 0h5m5 0h1m4 0h1m-33 1h1m3 0h1m1 0h1m1 0h3m1 0h2m1 0h1m5 0h1m1 0h7m-22 1h3m1 0h1m2 0h4m1 0h1m3 0h1m3 0h2m1 0h2m-33 1h7m1 0h1m1 0h5m2 0h1m3 0h4m1 0h1m1 0h1m1 0h3m-33 1h1m5 0h1m2 0h1m3 0h2m2 0h1m1 0h1m1 0h1m2 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m4 0h1m1 0h2m1 0h1m2 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m7 0h1m2 0h1m2 0h2m6 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h3m2 0h2m1 0h1m5 0h1m3 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m2 0h1m5 0h3m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m-32 1h7m2 0h1m2 0h1m5 0h4m1 0h3m2 0h1m2 0h2"/></svg>
+            </div>
+            <span>Okutun,<br>rehbere ekleyin</span>
+          </div>
+          <span class="bar" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <a class="btn btn-primary" href="yay-muhendislik.vcf" download="YAY Mühendislik.vcf">Rehbere kaydet</a>
+    <a class="btn" href="tel:+905441151443">Ara</a>
+    <a class="btn" href="https://wa.me/905441151443?text=Merhaba%2C%20metraj%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn" href="mailto:yaymuhendislik.tr@gmail.com">E-posta</a>
+    <button class="btn" type="button" id="print">Yazdır</button>
+  </div>
+  <p class="print-note">Baskı: 85 × 55 mm, A4 kâğıda 10 adet. 1. sayfa ön yüz, 2. sayfa arka yüzdür; çift taraflı ve “gerçek boyut / %100” ölçekte yazdırın. Kesim işaretlerinden kesin.</p>
+</main>
+
+<div class="sheets" aria-hidden="true">
+  <div class="sheet sheet-front"><div class="grid"></div></div>
+  <div class="sheet sheet-back"><div class="grid"></div></div>
+</div>
+
+<script>
+(function () {
+  // Fill each A4 sheet with 10 copies of a face and add crop marks around the 2 × 5 grid.
+  var COLS = 2, ROWS = 5, W = 85, H = 55, LEFT = 20, TOP = 11, GAP = 3.5, LEN = 5;
+  function fill(sheetSel, cardId) {
+    var sheet = document.querySelector(sheetSel), grid = sheet.querySelector('.grid');
+    var src = document.getElementById(cardId);
+    for (var i = 0; i < COLS * ROWS; i++) {
+      var c = src.cloneNode(true);
+      c.removeAttribute('id');
+      c.querySelectorAll('[id]').forEach(function (n) { n.removeAttribute('id'); });
+      grid.appendChild(c);
+    }
+    function mark(cls, x, y) {
+      var m = document.createElement('span');
+      m.className = 'crop ' + cls;
+      m.style.left = x + 'mm'; m.style.top = y + 'mm';
+      sheet.appendChild(m);
+    }
+    var r, c2;
+    for (r = 0; r <= ROWS; r++) {
+      var y = TOP + r * H;
+      mark('h', LEFT - GAP - LEN, y);
+      mark('h', LEFT + COLS * W + GAP, y);
+    }
+    for (c2 = 0; c2 <= COLS; c2++) {
+      var x = LEFT + c2 * W;
+      mark('v', x, TOP - GAP - LEN);
+      mark('v', x, TOP + ROWS * H + GAP);
+    }
+  }
+  fill('.sheet-front', 'card-front');
+  fill('.sheet-back', 'card-back');
+  document.getElementById('print').addEventListener('click', function () { window.print(); });
+})();
+</script>
+</body>
+</html>
