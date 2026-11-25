@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YAY Mühendislik</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:title" content="YAY Mühendislik">
+<meta property="og:description" content="Alüminyum sistemleri ve mekanik tesisatta metraj, keşif ve danışmanlık.">
+<meta property="og:image" content="https://yaymuhendislik.github.io/logo-light.png">
+
+<meta name="description" content="Alüminyum sistemleri ve mekanik tesisatta metraj, keşif ve danışmanlık.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a drawing sheet. Hero pairs the pitch with a live takeoff sheet; sections are separated by dimension lines; the footer is the sheet's title block (antet). */
+:root {
+  --bg: #eef1f3;          /* anodized aluminum, cool */
+  --surface: #ffffff;
+  --ink: #2b3135;         /* RAL 7016 anthracite, darkened */
+  --muted: #5d676e;
+  --line: #c9d0d5;
+  --accent: #124c8c;      /* logo blue */
+  --accent-ink: #ffffff;
+  --spring: #e8861a;      /* logo orange, small markers only */
+  --logo-light: block; --logo-dark: none;
+  --hot: #b4432f;         /* hot water line, used only in the mechanical sheet */
+  --sheet: #f8fafb;
+  --display: "IBM Plex Sans Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --wrap: 72rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15191c; --surface: #1d2226; --ink: #e4e8eb; --muted: #9aa5ad; --line: #343c42;
+    --accent: #6ea8e8; --accent-ink: #0c1a22; --hot: #e07a62; --sheet: #191e21;
+    --spring: #f39a35; --logo-light: none; --logo-dark: block;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15191c; --surface: #1d2226; --ink: #e4e8eb; --muted: #9aa5ad; --line: #343c42;
+  --accent: #6ea8e8; --accent-ink: #0c1a22; --hot: #e07a62; --sheet: #191e21;
+  --spring: #f39a35; --logo-light: none; --logo-dark: block;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 1rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.wrap {
+  max-width: var(--wrap); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label {
+  font-family: var(--mono); font-size: .75rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* Header */
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .9rem; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; text-decoration: none; }
+.brand img { height: 3rem; width: auto; max-width: 100%; }
+.brand .logo-light { display: var(--logo-light); }
+.brand .logo-dark { display: var(--logo-dark); }
+.nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.nav a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: .95rem; }
+.nav a:hover { color: var(--accent); }
+
+/* Hero */
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3rem; align-items: center; padding-block: 4rem 3.5rem; }
+.hero-text { display: flex; flex-direction: column; gap: 1.4rem; min-width: 0; }
+.hero h1 { font-size: clamp(2.4rem, 6vw, 4.1rem); font-weight: 700; letter-spacing: -.01em; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.lede { font-size: 1.12rem; color: var(--muted); max-width: 34rem; }
+.cta-row { display: flex; gap: .75rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .8rem 1.25rem; font-weight: 600; font-size: .98rem;
+  text-decoration: none; border: 2px solid var(--accent);
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-ghost { color: var(--accent); background: transparent; }
+
+/* Takeoff sheet */
+.sheet {
+  background: var(--sheet); border: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--line), 0 18px 40px -24px rgba(20, 30, 40, .35);
+  min-width: 0;
+}
+.sheet-head { display: flex; justify-content: space-between; align-items: center; gap: .75rem; padding: .8rem 1rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tabs { display: flex; border: 1px solid var(--line); }
+.tab {
+  font: 500 .8rem var(--mono); padding: .35rem .7rem; border: 0; cursor: pointer;
+  background: transparent; color: var(--muted);
+}
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: .82rem; font-variant-numeric: tabular-nums; }
+th, td { padding: .55rem 1rem; text-align: left; border-bottom: 1px dashed var(--line); white-space: nowrap; }
+th { font-weight: 500; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+td.num, th.num { text-align: right; }
+tfoot td { border-bottom: 0; border-top: 2px solid var(--ink); font-weight: 500; }
+.pipe { display: inline-block; width: .6rem; height: .6rem; margin-right: .45rem; vertical-align: .05rem; }
+.pipe.cold { background: var(--accent); }
+.pipe.hot { background: var(--hot); }
+.pipe.air { border: 2px solid var(--muted); }
+.sheet-note { padding: .6rem 1rem .8rem; font-size: .72rem; color: var(--muted); font-family: var(--mono); }
+
+/* Dimension line divider */
+.dim { position: relative; height: 1px; background: var(--muted); opacity: .55; margin-block: 0; }
+.dim::before, .dim::after { content: ""; position: absolute; top: -6px; width: 1px; height: 13px; background: var(--muted); transform: rotate(45deg); }
+.dim::before { left: 0; } .dim::after { right: 0; }
+
+/* Sections */
+section { padding-block: 4.5rem; }
+.sec-head { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 2.5rem; max-width: 40rem; }
+.sec-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; }
+.sec-head p { color: var(--muted); font-size: 1.05rem; }
+
+.services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.service { background: var(--surface); border: 1px solid var(--line); padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+.service h3 { font-size: 1.45rem; font-weight: 600; }
+.service p { color: var(--muted); }
+.service ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .45rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.service li { padding-left: 1.1rem; position: relative; font-size: .95rem; }
+.service li::before { content: ""; position: absolute; left: 0; top: .7em; width: .55rem; height: 2px; background: var(--spring); }
+
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; border-top: 2px solid var(--ink); }
+.step { padding: 1.5rem 1.5rem 0 0; display: flex; flex-direction: column; gap: .6rem; min-width: 0; }
+.step::before { counter-increment: step; content: "Adım " counter(step); font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--spring); }
+.step h3 { font-size: 1.25rem; font-weight: 600; }
+.step p { color: var(--muted); font-size: .95rem; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.deliver { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+.deliver div { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; padding-block: 1rem; border-bottom: 1px solid var(--line); }
+.deliver dt { font-family: var(--mono); font-size: .8rem; color: var(--accent); padding-top: .15rem; }
+.deliver dd { margin: 0; }
+.who { display: flex; flex-wrap: wrap; gap: .6rem; }
+.who span { border: 1px solid var(--line); background: var(--surface); padding: .5rem .9rem; font-weight: 500; font-size: .95rem; }
+
+/* Contact */
+.contact { background: var(--ink); color: var(--bg); }
+.contact .sec-head p { color: color-mix(in srgb, var(--bg) 70%, var(--ink)); }
+.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.contact-item { display: flex; flex-direction: column; gap: .4rem; border-top: 1px solid color-mix(in srgb, var(--bg) 30%, var(--ink)); padding-top: 1rem; min-width: 0; }
+.contact-item .label { color: color-mix(in srgb, var(--bg) 60%, var(--ink)); }
+.contact-item .value { font-family: var(--display); font-size: 1.35rem; font-weight: 600; overflow-wrap: anywhere; }
+.placeholder { border: 1px dashed currentColor; padding: .1rem .5rem; opacity: .75; font-size: 1rem !important; font-family: var(--mono) !important; font-weight: 400 !important; }
+
+/* Title block footer */
+.antet { padding-block: 2rem; }
+.antet-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border: 1.5px solid var(--ink); }
+.antet-grid > div { padding: .6rem .8rem; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
+.antet-grid > div:last-child { border-right: 0; }
+.antet-grid .v { font-family: var(--mono); font-size: .85rem; }
+
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 2.75rem 3rem; }
+  .services { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; row-gap: 1.5rem; }
+  .split { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .antet-grid { grid-template-columns: 1fr 1fr; }
+  .antet-grid > div { border-bottom: 1px solid var(--line); }
+}
+@media (max-width: 520px) {
+  .nav { gap: 1rem; }
+  .steps { grid-template-columns: 1fr; }
+  .step { padding-right: 0; }
+  section { padding-block: 3.25rem; }
+  .deliver div { grid-template-columns: 1fr; gap: .25rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn, .nav a, .tab { transition: background-color .15s, color .15s; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="YAY Mühendislik ana sayfa">
+      <img class="logo-light" src="logo-light.png" alt="YAY Mühendislik" width="1000" height="282">
+      <img class="logo-dark" src="logo-dark.png" alt="YAY Mühendislik" width="1000" height="282">
+    </a>
+    <nav class="nav" aria-label="Sayfa içi">
+      <a href="#hizmetler">Hizmetler</a>
+      <a href="#surec">Süreç</a>
+      <a href="#iletisim">İletişim</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <span class="label">Alüminyum · Mekanik tesisat</span>
+        <h1>Projeniz çizildi. <em>Metrajı bize bırakın.</em></h1>
+        <p class="lede">Alüminyum sistemlerinin ve mekanik tesisatın metrajını, keşfini ve yaklaşık maliyetini çıkarıyoruz. Pencereden küpeşteye, cam balkondan duşakabine kadar. Teklif ve hakediş aşamasında yanınızda oluyoruz.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#iletisim">Teklif isteyin</a>
+          <a class="btn btn-ghost" href="#hizmetler">Hizmetleri görün</a>
+        </div>
+      </div>
+
+      <figure class="sheet" style="margin:0" aria-label="Örnek metraj cetveli">
+        <div class="sheet-head">
+          <span class="label" id="sheet-title">Doğrama listesi</span>
+          <div class="tabs" role="tablist" aria-label="Metraj türü">
+            <button class="tab" role="tab" id="tab-al" aria-selected="true" aria-controls="sheet-al">Alüminyum</button>
+            <button class="tab" role="tab" id="tab-mk" aria-selected="false" aria-controls="sheet-mk">Mekanik</button>
+          </div>
+        </div>
+
+        <div class="table-scroll" id="sheet-al" role="tabpanel" aria-labelledby="tab-al">
+          <table>
+            <thead><tr><th>Tip</th><th>En/Boy (cm)</th><th class="num">Adet</th><th class="num">Birim m²</th><th class="num">Toplam m²</th></tr></thead>
+            <tbody>
+              <tr><td>P-01</td><td>120/150</td><td class="num">24</td><td class="num">1,80</td><td class="num">43,20</td></tr>
+              <tr><td>P-02</td><td>90/150</td><td class="num">12</td><td class="num">1,35</td><td class="num">16,20</td></tr>
+              <tr><td>K-01</td><td>110/220</td><td class="num">6</td><td class="num">2,42</td><td class="num">14,52</td></tr>
+              <tr><td>V-01</td><td>60/60</td><td class="num">18</td><td class="num">0,36</td><td class="num">6,48</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="2">Toplam</td><td class="num">60</td><td></td><td class="num">80,40</td></tr></tfoot>
+          </table>
+        </div>
+
+        <div class="table-scroll" id="sheet-mk" role="tabpanel" aria-labelledby="tab-mk" hidden>
+          <table>
+            <thead><tr><th>Kalem</th><th>Ölçü</th><th class="num">Birim</th><th class="num">Miktar</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pipe cold" aria-hidden="true"></span>PPR-C boru</td><td>Ø20</td><td class="num">m</td><td class="num">412,50</td></tr>
+              <tr><td><span class="pipe hot" aria-hidden="true"></span>PPR-C boru</td><td>Ø25</td><td class="num">m</td><td class="num">186,00</td></tr>
+              <tr><td><span class="pipe hot" aria-hidden="true"></span>Panel radyatör</td><td>600/1000</td><td class="num">adet</td><td class="num">48</td></tr>
+              <tr><td><span class="pipe air" aria-hidden="true"></span>Spiral kanal</td><td>Ø200</td><td class="num">m</td><td class="num">96,40</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figcaption class="sheet-note">Örnek tablodur. Gerçek bir projeye ait değildir.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="wrap"><div class="dim" role="presentation"></div></div>
+
+  <section id="hizmetler">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Hizmetler</span>
+        <h2>Uzmanlık alanımız dar, işimiz derin</h2>
+        <p>Yalnızca iki disipline odaklanıyoruz. Bu sayede her pozu, her profili ve her boru çapını aynı titizlikle sayıyoruz.</p>
+      </div>
+      <div class="services">
+        <article class="service">
+          <span class="label">01 · Alüminyum</span>
+          <h3>Alüminyum sistemleri metrajı</h3>
+          <p>Projedeki tüm alüminyum ve cam elemanlarını tek tek çıkarır, tip ve ölçüye göre listeleriz.</p>
+          <ul>
+            <li>Pencere, kapı ve giydirme cephe</li>
+            <li>Küpeşte ve korkuluk</li>
+            <li>Cam balkon ve duşakabin</li>
+            <li>m², mt ve profil ağırlığı (kg) hesabı</li>
+            <li>Cam, aksesuar ve fitil miktarları</li>
+          </ul>
+        </article>
+        <article class="service">
+          <span class="label">02 · Mekanik</span>
+          <h3>Mekanik tesisat metrajı</h3>
+          <p>Tesisat projelerindeki boru, ekipman ve armatürleri sistem sistem ayırarak ölçeriz.</p>
+          <ul>
+            <li>Sıhhi tesisat ve pis su</li>
+            <li>Isıtma ve soğutma</li>
+            <li>Havalandırma ve kanal</li>
+            <li>Yangın söndürme tesisatı</li>
+          </ul>
+        </article>
+        <article class="service">
+          <span class="label">03 · Danışmanlık</span>
+          <h3>Keşif ve maliyet danışmanlığı</h3>
+          <p>Metrajı birim fiyatlarla eşleştirir, ihaleden hakedişe kadar rakamlarınızı kontrol ederiz.</p>
+          <ul>
+            <li>Keşif özeti ve yaklaşık maliyet</li>
+            <li>Birim fiyat poz eşleştirmesi</li>
+            <li>Hakediş ve metraj kontrolü</li>
+            <li>Proje ile uygulama karşılaştırması</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="dim" role="presentation"></div></div>
+
+  <section id="surec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Süreç</span>
+        <h2>Projeden rapora dört adım</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Projeyi gönderin</h3><p>DWG, PDF veya basılı pafta. Mimari ve tesisat projeleri ayrı ayrı olabilir.</p></div>
+        <div class="step"><h3>Kapsamı netleştirelim</h3><p>Hangi disiplinler, hangi birim fiyat seti ve ne zamana lazım olduğunu konuşuruz.</p></div>
+        <div class="step"><h3>Metrajı çıkaralım</h3><p>Her kalemi paftadan ölçer, tip ve mahal bazında cetvele işleriz.</p></div>
+        <div class="step"><h3>Kontrol edip teslim edelim</h3><p>İkinci bir gözle kontrol eder, raporu düzenlenebilir dosyalarla teslim ederiz.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="dim" role="presentation"></div></div>
+
+  <section>
+    <div class="wrap split">
+      <div>
+        <div class="sec-head">
+          <span class="label">Teslim</span>
+          <h2>Elinize ne geçer</h2>
+        </div>
+        <dl class="deliver">
+          <div><dt>Excel</dt><dd>Formülleri açık, düzenlenebilir metraj cetvelleri</dd></div>
+          <div><dt>PDF</dt><dd>Basıma hazır keşif özeti ve doğrama listesi</dd></div>
+          <div><dt>Görünüş</dt><dd>Her alüminyum eleman tipi için ölçülü görünüş paftası</dd></div>
+          <div><dt>Not</dt><dd>Projede eksik ya da çelişkili bulduğumuz noktaların listesi</dd></div>
+        </dl>
+      </div>
+      <div>
+        <div class="sec-head">
+          <span class="label">Kimlerle çalışıyoruz</span>
+          <h2>Rakamı doğru olması gerekenler</h2>
+          <p>Okul, spor salonu ve kamu binalarından konut projelerine kadar farklı ölçekte işler.</p>
+        </div>
+        <div class="who">
+          <span>Yükleniciler</span>
+          <span>Kamu idareleri</span>
+          <span>Mimarlık ofisleri</span>
+          <span>Alüminyum imalatçıları</span>
+          <span>Mekanik taşeronlar</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="iletisim">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label" style="color:inherit;opacity:.7">İletişim</span>
+        <h2>Projenizi gönderin, aynı gün dönelim</h2>
+        <p>Pafta sayısını ve istediğiniz teslim tarihini yazmanız fiyat vermemiz için yeterli.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-item"><span class="label">Telefon</span><a class="value" href="tel:+905441151443" style="color:inherit;text-decoration:none">0 (544) 115 14 43</a></div>
+        <div class="contact-item"><span class="label">E-posta</span><a class="value" href="mailto:yaymuhendislik.tr@gmail.com" style="color:inherit;text-decoration:none">yaymuhendislik.tr@gmail.com</a></div>
+        <div class="contact-item"><span class="label">Adres</span><span class="value"><span class="placeholder">şehir eklenecek</span></span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="antet">
+  <div class="wrap">
+    <div class="antet-grid">
+      <div><span class="label">Firma</span><span class="v">YAY Mühendislik</span></div>
+      <div><span class="label">Disiplin</span><span class="v">Alüminyum · Mekanik</span></div>
+      <div><span class="label">Hizmet</span><span class="v">Metraj · Keşif</span></div>
+      <div><span class="label">Pafta</span><span class="v">01 / 01</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  var title = document.getElementById('sheet-title');
+  var titles = { 'sheet-al': 'Doğrama listesi', 'sheet-mk': 'Tesisat metrajı' };
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      title.textContent = titles[tab.getAttribute('aria-controls')];
+    });
+  });
+})();
+</script>
+</body>
+</html>
