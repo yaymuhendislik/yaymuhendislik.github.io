@@ -3,13 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YAY Mühendislik</title>
+<title>Alüminyum ve Mekanik Tesisat Metrajı, Keşif | YAY Mühendislik</title>
+<meta name="description" content="Alüminyum doğrama, giydirme cephe, küpeşte ve mekanik tesisat projelerinin metrajını, keşfini ve yaklaşık maliyetini çıkarıyoruz. Ergani / Diyarbakır merkezli, Türkiye geneline hizmet.">
+<link rel="canonical" href="https://yaymuhendislik.github.io/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#124c8c">
 <link rel="icon" type="image/png" href="favicon.png">
-<meta property="og:title" content="YAY Mühendislik">
-<meta property="og:description" content="Alüminyum sistemleri ve mekanik tesisatta metraj, keşif ve danışmanlık.">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="YAY Mühendislik">
+<meta property="og:url" content="https://yaymuhendislik.github.io/">
+<meta property="og:title" content="YAY Mühendislik · Alüminyum ve mekanik tesisat metrajı">
+<meta property="og:description" content="Projenizi gönderin; doğrama listesini, tesisat metrajını ve keşif özetini çıkaralım.">
 <meta property="og:image" content="https://yaymuhendislik.github.io/logo-light.png">
-
-<meta name="description" content="Alüminyum sistemleri ve mekanik tesisatta metraj, keşif ve danışmanlık.">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://yaymuhendislik.github.io/#firma",
+  "name": "YAY Mühendislik",
+  "url": "https://yaymuhendislik.github.io/",
+  "logo": "https://yaymuhendislik.github.io/logo-light.png",
+  "image": "https://yaymuhendislik.github.io/logo-light.png",
+  "description": "Alüminyum sistemleri ve mekanik tesisatta metraj, keşif ve maliyet danışmanlığı.",
+  "telephone": "+90-544-115-14-43",
+  "email": "yaymuhendislik.tr@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Dicle, Kurtuluş Cd. C Blok No: 6 C/A",
+    "addressLocality": "Ergani",
+    "addressRegion": "Diyarbakır",
+    "postalCode": "21950",
+    "addressCountry": "TR"
+  },
+  "areaServed": { "@type": "Country", "name": "Türkiye" },
+  "knowsAbout": ["Metraj", "Keşif", "Alüminyum doğrama", "Giydirme cephe", "Küpeşte", "Cam balkon", "Mekanik tesisat", "Sıhhi tesisat", "Isıtma ve soğutma", "Havalandırma", "Yangın söndürme tesisatı", "Hakediş"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Hizmetler",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Alüminyum sistemleri metrajı", "description": "Pencere, kapı, giydirme cephe, küpeşte, cam balkon ve duşakabin metrajı; m², mt ve profil ağırlığı hesabı." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mekanik tesisat metrajı", "description": "Sıhhi tesisat, ısıtma-soğutma, havalandırma ve yangın söndürme tesisatı metrajı." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Keşif ve maliyet danışmanlığı", "description": "Keşif özeti, yaklaşık maliyet, birim fiyat poz eşleştirmesi, hakediş ve metraj kontrolü." } }
+    ]
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -191,8 +232,26 @@ section { padding-block: 4.5rem; }
 .contact-item .value { font-family: var(--display); font-size: 1.35rem; font-weight: 600; overflow-wrap: anywhere; }
 .placeholder { border: 1px dashed currentColor; padding: .1rem .5rem; opacity: .75; font-size: 1rem !important; font-family: var(--mono) !important; font-weight: 400 !important; }
 
+.contact-item .sub { color: inherit; font-size: .9rem; opacity: .8; }
+.contact-item .sub + .sub { margin-top: -.15rem; }
+
+/* WhatsApp */
+.wa {
+  position: fixed; z-index: 10;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .75rem 1.1rem .75rem .9rem; border-radius: 999px;
+  background: #1a7f45; color: #fff; text-decoration: none;
+  font-weight: 600; font-size: .95rem;
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .45);
+}
+.wa:hover { background: #146a39; }
+.wa:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.wa svg { width: 1.35rem; height: 1.35rem; flex: none; }
+
 /* Footer */
-.foot { border-top: 1px solid var(--line); padding-block: 1.5rem; }
+.foot { border-top: 1px solid var(--line); padding-block: 1.5rem 5.5rem; }
 .foot p { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
 
 @media (max-width: 900px) {
@@ -414,7 +473,7 @@ section { padding-block: 4.5rem; }
         <p>Pafta sayısını ve istediğiniz teslim tarihini yazmanız fiyat vermemiz için yeterli.</p>
       </div>
       <div class="contact-grid">
-        <div class="contact-item"><span class="label">Telefon</span><a class="value" href="tel:+905441151443" style="color:inherit;text-decoration:none">0 (544) 115 14 43</a></div>
+        <div class="contact-item"><span class="label">Telefon</span><a class="value" href="tel:+905441151443" style="color:inherit;text-decoration:none">0 (544) 115 14 43</a><a class="sub" href="https://wa.me/905441151443?text=Merhaba%2C%20metraj%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp'tan proje gönderin</a></div>
         <div class="contact-item"><span class="label">E-posta</span><a class="value" href="mailto:yaymuhendislik.tr@gmail.com" style="color:inherit;text-decoration:none">yaymuhendislik.tr@gmail.com</a></div>
         <div class="contact-item"><span class="label">Adres</span><span class="value" style="font-size:1.1rem;line-height:1.4">Dicle, Kurtuluş Cd. C blok No: 6 C/A<br>21950 Ergani / Diyarbakır</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Kurtulu%C5%9F+Cd.+No%3A6+Ergani+Diyarbak%C4%B1r" target="_blank" rel="noopener" style="color:inherit;font-size:.9rem;opacity:.8">Haritada aç</a></div>
       </div>
@@ -427,6 +486,11 @@ section { padding-block: 4.5rem; }
     <p>© 2026 YAY Mühendislik · Ergani / Diyarbakır</p>
   </div>
 </footer>
+
+<a class="wa" href="https://wa.me/905441151443?text=Merhaba%2C%20metraj%20i%C3%A7in%20teklif%20almak%20istiyorum." target="_blank" rel="noopener" aria-label="WhatsApp'tan yazın">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.2c0 3 2.8 5.8 5.8 5.8l1.2-1.4-1.9-1-1 .8a4 4 0 0 1-2.5-2.5l.8-1-1-1.9z" fill="currentColor" stroke-width="1"/></svg>
+  <span>WhatsApp</span>
+</a>
 
 <script>
 (function () {
