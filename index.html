@@ -27,6 +27,7 @@
   --logo-light: block; --logo-dark: none;
   --hot: #b4432f;         /* hot water line, used only in the mechanical sheet */
   --sheet: #f8fafb;
+  --tile: #262c31;         /* logo tiles, same in both themes so white logo text reads */
   --display: "IBM Plex Sans Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
   --body: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -156,6 +157,19 @@ section { padding-block: 4.5rem; }
 .who { display: flex; flex-wrap: wrap; gap: .6rem; }
 .who span { border: 1px solid var(--line); background: var(--surface); padding: .5rem .9rem; font-weight: 500; font-size: .95rem; }
 
+/* References */
+.refs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.ref { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); border: 1px solid var(--line); background: var(--surface); min-width: 0; }
+.ref-logo { background: var(--tile); height: 8rem; display: grid; place-items: center; padding: 1.25rem; }
+.ref-logo img { max-height: 4.5rem; width: auto; max-width: 100%; }
+.ref-word { font-family: var(--display); font-weight: 700; font-size: 1.9rem; letter-spacing: .14em; color: #f2f5f7; text-align: center; line-height: 1; }
+.ref-word small { display: block; font-family: var(--mono); font-weight: 400; font-size: .7rem; letter-spacing: .2em; margin-top: .5rem; color: #aeb8bf; }
+.ref-meta { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; padding: .9rem 1rem; }
+.ref-meta strong { font-family: var(--display); font-size: 1.15rem; font-weight: 600; }
+.ref-meta span { font-family: var(--mono); font-size: .75rem; color: var(--accent); white-space: nowrap; }
+.ref:hover .ref-meta span, .ref:focus-visible .ref-meta span { text-decoration: underline; }
+@media (max-width: 900px) { .refs { grid-template-columns: 1fr; } }
+
 /* Contact */
 .contact { background: var(--ink); color: var(--bg); }
 .contact .sec-head p { color: color-mix(in srgb, var(--bg) 70%, var(--ink)); }
@@ -203,6 +217,7 @@ section { padding-block: 4.5rem; }
     <nav class="nav" aria-label="Sayfa içi">
       <a href="#hizmetler">Hizmetler</a>
       <a href="#surec">Süreç</a>
+      <a href="#referanslar">Referanslar</a>
       <a href="#iletisim">İletişim</a>
     </nav>
   </div>
@@ -353,6 +368,31 @@ section { padding-block: 4.5rem; }
           <span>Alüminyum imalatçıları</span>
           <span>Mekanik taşeronlar</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="dim" role="presentation"></div></div>
+
+  <section id="referanslar">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Referanslar</span>
+        <h2>Birlikte çalıştığımız firmalar</h2>
+      </div>
+      <div class="refs">
+        <a class="ref" href="https://www.ebrarpen.com.tr/" target="_blank" rel="noopener">
+          <span class="ref-logo"><img src="referans/ebrarpen.png" alt="Ebrar Pen logosu" width="415" height="90"></span>
+          <span class="ref-meta"><strong>Ebrar Pen</strong><span>ebrarpen.com.tr ↗</span></span>
+        </a>
+        <a class="ref" href="https://www.mecaluminyum.com/" target="_blank" rel="noopener">
+          <span class="ref-logo"><img src="referans/mec-aluminyum.png" alt="Meç Alüminyum logosu" width="211" height="82"></span>
+          <span class="ref-meta"><strong>Meç Alüminyum</strong><span>mecaluminyum.com ↗</span></span>
+        </a>
+        <a class="ref" href="https://www.instagram.com/akol_cam_sanayi/" target="_blank" rel="noopener">
+          <span class="ref-logo"><span class="ref-word">AKOL CAM<small>SANAYİ</small></span></span>
+          <span class="ref-meta"><strong>Akol Cam</strong><span>Instagram ↗</span></span>
+        </a>
       </div>
     </div>
   </section>
