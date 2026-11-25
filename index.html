@@ -25,6 +25,7 @@
   --accent-ink: #ffffff;
   --spring: #e8861a;      /* logo orange, small markers only */
   --logo-light: block; --logo-dark: none;
+  --hero-bg-opacity: .2;
   --hot: #b4432f;         /* hot water line, used only in the mechanical sheet */
   --sheet: #f8fafb;
   --tile: #262c31;         /* logo tiles, same in both themes so white logo text reads */
@@ -37,14 +38,14 @@
   :root:not([data-theme="light"]) {
     --bg: #15191c; --surface: #1d2226; --ink: #e4e8eb; --muted: #9aa5ad; --line: #343c42;
     --accent: #6ea8e8; --accent-ink: #0c1a22; --hot: #e07a62; --sheet: #191e21;
-    --spring: #f39a35; --logo-light: none; --logo-dark: block;
+    --spring: #f39a35; --logo-light: none; --logo-dark: block; --hero-bg-opacity: .3;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #15191c; --surface: #1d2226; --ink: #e4e8eb; --muted: #9aa5ad; --line: #343c42;
   --accent: #6ea8e8; --accent-ink: #0c1a22; --hot: #e07a62; --sheet: #191e21;
-  --spring: #f39a35; --logo-light: none; --logo-dark: block;
+  --spring: #f39a35; --logo-light: none; --logo-dark: block; --hero-bg-opacity: .3;
   color-scheme: dark;
 }
 
@@ -89,8 +90,16 @@ p { margin: 0; }
 .hero-text { display: flex; flex-direction: column; gap: 1.4rem; min-width: 0; }
 .hero h1 { font-size: clamp(2.4rem, 6vw, 4.1rem); font-weight: 700; letter-spacing: -.01em; }
 .hero h1 em { font-style: normal; color: var(--accent); }
-.profile-fig { display: flex; justify-content: center; padding-block: .5rem 3.5rem; }
-.profile-fig img { width: 100%; max-width: 30rem; height: auto; }
+.hero { position: relative; overflow: hidden; }
+.hero > .wrap { position: relative; z-index: 1; }
+.hero-bg {
+  position: absolute; z-index: 0; pointer-events: none;
+  top: 0; bottom: 0; height: 100%; width: auto; max-width: none;
+  left: max(0rem, calc(50% - 34rem));
+  opacity: var(--hero-bg-opacity);
+  -webkit-mask-image: linear-gradient(to top, #000 60%, transparent);
+          mask-image: linear-gradient(to top, #000 60%, transparent);
+}
 .lede { font-size: 1.12rem; color: var(--muted); max-width: 34rem; }
 .cta-row { display: flex; gap: .75rem; flex-wrap: wrap; }
 .btn {
@@ -188,6 +197,7 @@ section { padding-block: 4.5rem; }
 
 @media (max-width: 900px) {
   .hero .wrap { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 2.75rem 3rem; }
+  .hero-bg { top: 0; height: 34rem; bottom: auto; left: auto; right: -5rem; }
   .services { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; row-gap: 1.5rem; }
   .split { grid-template-columns: 1fr; }
@@ -223,6 +233,7 @@ section { padding-block: 4.5rem; }
 
 <main>
   <div class="hero">
+    <img class="hero-bg" src="img/pencere-kesit.webp" alt="" width="1095" height="1361" aria-hidden="true">
     <div class="wrap">
       <div class="hero-text">
         <span class="label">Alüminyum · Mekanik tesisat</span>
@@ -270,10 +281,6 @@ section { padding-block: 4.5rem; }
         <figcaption class="sheet-note">Örnek tablodur. Gerçek bir projeye ait değildir.</figcaption>
       </figure>
     </div>
-  </div>
-
-  <div class="wrap profile-fig">
-    <img src="img/profil.webp" alt="Isı yalıtımlı alüminyum doğrama profili" width="952" height="919" loading="lazy">
   </div>
 
   <div class="wrap"><div class="dim" role="presentation"></div></div>
