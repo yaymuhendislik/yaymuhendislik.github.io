@@ -89,10 +89,8 @@ p { margin: 0; }
 .hero-text { display: flex; flex-direction: column; gap: 1.4rem; min-width: 0; }
 .hero h1 { font-size: clamp(2.4rem, 6vw, 4.1rem); font-weight: 700; letter-spacing: -.01em; }
 .hero h1 em { font-style: normal; color: var(--accent); }
-.hero-art { margin: 0; display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
-.hero-art canvas { display: block; width: 100%; aspect-ratio: 5 / 4; max-width: 100%; }
-.hero-art figcaption { text-align: right; }
-.sample-sheet { max-width: 46rem; }
+.profile-fig { display: flex; justify-content: center; padding-block: .5rem 3.5rem; }
+.profile-fig img { width: 100%; max-width: 30rem; height: auto; }
 .lede { font-size: 1.12rem; color: var(--muted); max-width: 34rem; }
 .cta-row { display: flex; gap: .75rem; flex-wrap: wrap; }
 .btn {
@@ -189,9 +187,7 @@ section { padding-block: 4.5rem; }
 .foot p { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
 
 @media (max-width: 900px) {
-  .hero .wrap { grid-template-columns: 1fr; gap: 1.5rem; padding-block: 1.5rem 3rem; }
-  .hero-art { order: -1; }
-  .hero-art canvas { aspect-ratio: 16 / 11; }
+  .hero .wrap { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 2.75rem 3rem; }
   .services { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; row-gap: 1.5rem; }
   .split { grid-template-columns: 1fr; }
@@ -238,59 +234,47 @@ section { padding-block: 4.5rem; }
         </div>
       </div>
 
-      <figure class="hero-art">
-        <canvas id="profile" aria-label="Isı yalıtımlı alüminyum doğrama profilinin izometrik çizimi" role="img"></canvas>
-        <figcaption class="label">Isı yalıtımlı doğrama profili · izometrik</figcaption>
+      <figure class="sheet" style="margin:0" aria-label="Örnek metraj cetveli">
+        <div class="sheet-head">
+          <span class="label" id="sheet-title">Doğrama listesi</span>
+          <div class="tabs" role="tablist" aria-label="Metraj türü">
+            <button class="tab" role="tab" id="tab-al" aria-selected="true" aria-controls="sheet-al">Alüminyum</button>
+            <button class="tab" role="tab" id="tab-mk" aria-selected="false" aria-controls="sheet-mk">Mekanik</button>
+          </div>
+        </div>
+
+        <div class="table-scroll" id="sheet-al" role="tabpanel" aria-labelledby="tab-al">
+          <table>
+            <thead><tr><th>Tip</th><th>En/Boy (cm)</th><th class="num">Adet</th><th class="num">Birim m²</th><th class="num">Toplam m²</th></tr></thead>
+            <tbody>
+              <tr><td>P-01</td><td>120/150</td><td class="num">24</td><td class="num">1,80</td><td class="num">43,20</td></tr>
+              <tr><td>P-02</td><td>90/150</td><td class="num">12</td><td class="num">1,35</td><td class="num">16,20</td></tr>
+              <tr><td>K-01</td><td>110/220</td><td class="num">6</td><td class="num">2,42</td><td class="num">14,52</td></tr>
+              <tr><td>V-01</td><td>60/60</td><td class="num">18</td><td class="num">0,36</td><td class="num">6,48</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="2">Toplam</td><td class="num">60</td><td></td><td class="num">80,40</td></tr></tfoot>
+          </table>
+        </div>
+
+        <div class="table-scroll" id="sheet-mk" role="tabpanel" aria-labelledby="tab-mk" hidden>
+          <table>
+            <thead><tr><th>Kalem</th><th>Ölçü</th><th class="num">Birim</th><th class="num">Miktar</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pipe cold" aria-hidden="true"></span>PPR-C boru</td><td>Ø20</td><td class="num">m</td><td class="num">412,50</td></tr>
+              <tr><td><span class="pipe hot" aria-hidden="true"></span>PPR-C boru</td><td>Ø25</td><td class="num">m</td><td class="num">186,00</td></tr>
+              <tr><td><span class="pipe hot" aria-hidden="true"></span>Panel radyatör</td><td>600/1000</td><td class="num">adet</td><td class="num">48</td></tr>
+              <tr><td><span class="pipe air" aria-hidden="true"></span>Spiral kanal</td><td>Ø200</td><td class="num">m</td><td class="num">96,40</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figcaption class="sheet-note">Örnek tablodur. Gerçek bir projeye ait değildir.</figcaption>
       </figure>
     </div>
   </div>
 
-  <div class="wrap"><div class="dim" role="presentation"></div></div>
-
-  <section id="ornek">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="label">Örnek çıktı</span>
-        <h2>Metraj cetveli böyle görünür</h2>
-        <p>Her kalem tip, ölçü ve adetle ayrı satırda yer alır. Toplamları kendiniz de kontrol edebilirsiniz.</p>
-      </div>
-        <figure class="sheet sample-sheet" style="margin:0" aria-label="Örnek metraj cetveli">
-          <div class="sheet-head">
-            <span class="label" id="sheet-title">Doğrama listesi</span>
-            <div class="tabs" role="tablist" aria-label="Metraj türü">
-              <button class="tab" role="tab" id="tab-al" aria-selected="true" aria-controls="sheet-al">Alüminyum</button>
-              <button class="tab" role="tab" id="tab-mk" aria-selected="false" aria-controls="sheet-mk">Mekanik</button>
-            </div>
-          </div>
-
-          <div class="table-scroll" id="sheet-al" role="tabpanel" aria-labelledby="tab-al">
-            <table>
-              <thead><tr><th>Tip</th><th>En/Boy (cm)</th><th class="num">Adet</th><th class="num">Birim m²</th><th class="num">Toplam m²</th></tr></thead>
-              <tbody>
-                <tr><td>P-01</td><td>120/150</td><td class="num">24</td><td class="num">1,80</td><td class="num">43,20</td></tr>
-                <tr><td>P-02</td><td>90/150</td><td class="num">12</td><td class="num">1,35</td><td class="num">16,20</td></tr>
-                <tr><td>K-01</td><td>110/220</td><td class="num">6</td><td class="num">2,42</td><td class="num">14,52</td></tr>
-                <tr><td>V-01</td><td>60/60</td><td class="num">18</td><td class="num">0,36</td><td class="num">6,48</td></tr>
-              </tbody>
-              <tfoot><tr><td colspan="2">Toplam</td><td class="num">60</td><td></td><td class="num">80,40</td></tr></tfoot>
-            </table>
-          </div>
-
-          <div class="table-scroll" id="sheet-mk" role="tabpanel" aria-labelledby="tab-mk" hidden>
-            <table>
-              <thead><tr><th>Kalem</th><th>Ölçü</th><th class="num">Birim</th><th class="num">Miktar</th></tr></thead>
-              <tbody>
-                <tr><td><span class="pipe cold" aria-hidden="true"></span>PPR-C boru</td><td>Ø20</td><td class="num">m</td><td class="num">412,50</td></tr>
-                <tr><td><span class="pipe hot" aria-hidden="true"></span>PPR-C boru</td><td>Ø25</td><td class="num">m</td><td class="num">186,00</td></tr>
-                <tr><td><span class="pipe hot" aria-hidden="true"></span>Panel radyatör</td><td>600/1000</td><td class="num">adet</td><td class="num">48</td></tr>
-                <tr><td><span class="pipe air" aria-hidden="true"></span>Spiral kanal</td><td>Ø200</td><td class="num">m</td><td class="num">96,40</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <figcaption class="sheet-note">Örnek tablodur. Gerçek bir projeye ait değildir.</figcaption>
-        </figure>
-    </div>
-  </section>
+  <div class="wrap profile-fig">
+    <img src="img/profil.webp" alt="Isı yalıtımlı alüminyum doğrama profili" width="952" height="919" loading="lazy">
+  </div>
 
   <div class="wrap"><div class="dim" role="presentation"></div></div>
 
@@ -452,142 +436,6 @@ section { padding-block: 4.5rem; }
       title.textContent = titles[tab.getAttribute('aria-controls')];
     });
   });
-})();
-
-(function () {
-  var cv = document.getElementById('profile');
-  if (!cv || !cv.getContext) return;
-  var ctx = cv.getContext('2d');
-  var C30 = Math.cos(Math.PI / 6), S30 = 0.5;
-  var L = 230; // extrusion length, mm
-  // Cross-section in mm: x = profile depth, y = height
-  var outer = [[0,0],[70,0],[70,46],[63,46],[63,62],[57,62],[57,50],[13,50],[13,62],[7,62],[7,46],[0,46]];
-  var holes = [
-    [[3,3],[25,3],[25,43],[3,43]],
-    [[45,3],[67,3],[67,43],[45,43]],
-    [[29,14],[41,14],[41,32],[29,32]]
-  ];
-  var breaks = [[[25,6],[45,6],[45,11],[25,11]], [[25,35],[45,35],[45,40],[25,40]]];
-  var EYE = [C30, C30]; // xy part of the view direction; eye sits at +x, +y, -z
-
-  function P(x, y, z) { return [(x + z) * C30, -(y + (z - x) * S30)]; }
-  var sc = 1, ox = 0, oy = 0;
-  function T(pt) { return [ox + pt[0] * sc, oy + pt[1] * sc]; }
-  function V(x, y, z) { return T(P(x, y, z)); }
-
-  function shade(nx, ny, far) {
-    var lit = 0.62 + 0.30 * ny + 0.12 * nx;
-    var k = Math.max(0.25, Math.min(1, lit)) * (far ? 0.55 : 1);
-    var r = Math.round(196 * k + 20), g = Math.round(204 * k + 20), b = Math.round(212 * k + 22);
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
-  }
-  function quad(a, b, color, inner) {
-    var p1 = V(a[0], a[1], 0), p2 = V(b[0], b[1], 0), p3 = V(b[0], b[1], L), p4 = V(a[0], a[1], L);
-    var g = ctx.createLinearGradient(p1[0], p1[1], p4[0], p4[1]);
-    g.addColorStop(0, color); g.addColorStop(0.45, inner ? color : lighten(color, 18)); g.addColorStop(1, color);
-    ctx.fillStyle = g;
-    ctx.beginPath(); ctx.moveTo(p1[0], p1[1]); ctx.lineTo(p2[0], p2[1]); ctx.lineTo(p3[0], p3[1]); ctx.lineTo(p4[0], p4[1]); ctx.closePath();
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(40,50,60,.18)'; ctx.lineWidth = 0.6; ctx.stroke();
-  }
-  function lighten(rgb, d) {
-    var m = rgb.match(/\d+/g).map(Number);
-    return 'rgb(' + m.map(function (v) { return Math.min(255, v + d); }).join(',') + ')';
-  }
-  function edges(poly, inward) {
-    var out = [];
-    for (var i = 0; i < poly.length; i++) {
-      var a = poly[i], b = poly[(i + 1) % poly.length];
-      var dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy);
-      // outer polygon is counter-clockwise, so the outward normal is (dy, -dx)
-      var nx = dy / len, ny = -dx / len;
-      if (inward) { nx = -nx; ny = -ny; }
-      out.push({ a: a, b: b, nx: nx, ny: ny, depth: ((a[0] + b[0]) * EYE[0] + (a[1] + b[1]) * EYE[1]) / 2 });
-    }
-    return out;
-  }
-  function path(poly, z) {
-    poly.forEach(function (pt, i) { var q = V(pt[0], pt[1], z); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
-    ctx.closePath();
-  }
-
-  function draw() {
-    var dpr = window.devicePixelRatio || 1;
-    var w = cv.clientWidth, h = cv.clientHeight;
-    if (!w || !h) return;
-    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, w, h);
-    var css = getComputedStyle(document.documentElement);
-    var muted = css.getPropertyValue('--muted').trim() || '#5d676e';
-    var mono = css.getPropertyValue('--mono').trim() || 'monospace';
-
-    // fit: include dimension lines in the bounds
-    var pts = [];
-    [[-14, 0, 0], [0, 62, 0], [70, 0, -16], [0, 0, -16], [70, 62, L], [70, 0, L], [0, 62, L], [-14, 62, 0]].forEach(function (p) { pts.push(P(p[0], p[1], p[2])); });
-    var minX = Math.min.apply(null, pts.map(function (p) { return p[0]; })), maxX = Math.max.apply(null, pts.map(function (p) { return p[0]; }));
-    var minY = Math.min.apply(null, pts.map(function (p) { return p[1]; })), maxY = Math.max.apply(null, pts.map(function (p) { return p[1]; }));
-    var pad = 22;
-    sc = Math.min((w - pad * 2) / (maxX - minX), (h - pad * 2) / (maxY - minY));
-    ox = (w - (maxX - minX) * sc) / 2 - minX * sc;
-    oy = (h - (maxY - minY) * sc) / 2 - minY * sc;
-
-    // 1. outer side faces, back to front
-    edges(outer, false).filter(function (e) { return e.nx * EYE[0] + e.ny * EYE[1] > 0.01; })
-      .sort(function (p, q) { return p.depth - q.depth; })
-      .forEach(function (e) { quad(e.a, e.b, shade(e.nx, e.ny, false), false); });
-
-    // 2. end face with chambers cut out
-    var a0 = V(0, 62, 0), a1 = V(70, 0, 0);
-    var fg = ctx.createLinearGradient(a0[0], a0[1], a1[0], a1[1]);
-    fg.addColorStop(0, '#eef2f5'); fg.addColorStop(0.5, '#c9d1d8'); fg.addColorStop(1, '#e2e7eb');
-    ctx.beginPath(); path(outer, 0); holes.forEach(function (hp) { path(hp, 0); });
-    ctx.fillStyle = fg; ctx.fill('evenodd');
-    ctx.strokeStyle = 'rgba(30,40,50,.55)'; ctx.lineWidth = 1; ctx.stroke();
-
-    // 3. looking into the chambers
-    holes.forEach(function (hp) {
-      ctx.save(); ctx.beginPath(); path(hp, 0); ctx.clip();
-      ctx.fillStyle = '#3a434b'; ctx.fill();
-      edges(hp, false).filter(function (e) { return -(e.nx * EYE[0] + e.ny * EYE[1]) < -0.01 ? false : true; })
-        .forEach(function (e) {
-          // wall normals point into the chamber, i.e. opposite to the polygon's outward normal
-          var nx = -e.nx, ny = -e.ny;
-          if (nx * EYE[0] + ny * EYE[1] <= 0.01) return;
-          quad(e.a, e.b, shade(nx, ny, true), true);
-        });
-      ctx.restore();
-    });
-
-    // 4. polyamide thermal break strips
-    breaks.forEach(function (bp) {
-      ctx.beginPath(); path(bp, 0); ctx.fillStyle = '#2c3237'; ctx.fill();
-    });
-
-    // 5. dimension lines
-    ctx.strokeStyle = muted; ctx.fillStyle = muted; ctx.lineWidth = 1;
-    ctx.font = '500 ' + Math.max(10, Math.round(sc * 4.2)) + 'px ' + mono;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    function line(p, q) { ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke(); }
-    function tick(p) { line([p[0] - 3, p[1] + 3], [p[0] + 3, p[1] - 3]); }
-    // depth 70
-    line(V(0, 0, -3), V(0, 0, -14)); line(V(70, 0, -3), V(70, 0, -14));
-    var d1 = V(0, 0, -11), d2 = V(70, 0, -11); line(d1, d2); tick(d1); tick(d2);
-    var dm = V(35, 0, -16.5); ctx.fillText('70', dm[0], dm[1]);
-    // height 62
-    line(V(-3, 0, 0), V(-11, 0, 0)); line(V(-3, 62, 0), V(-11, 62, 0));
-    var h1 = V(-9, 0, 0), h2 = V(-9, 62, 0); line(h1, h2); tick(h1); tick(h2);
-    var hm = V(-14, 31, 0); ctx.fillText('62', hm[0], hm[1]);
-  }
-
-  draw();
-  var raf;
-  window.addEventListener('resize', function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); });
-  if (window.matchMedia) {
-    var mq = window.matchMedia('(prefers-color-scheme: dark)');
-    if (mq.addEventListener) mq.addEventListener('change', draw);
-  }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
 })();
 </script>
 </body>
